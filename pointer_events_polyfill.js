@@ -51,15 +51,16 @@ PointerEventsPolyfill.prototype.register_mouse_events = function(){
 
              var underneathElem = document.elementFromPoint(e.clientX, e.clientY);
 
+             // fire the mouse event on the element below
+            e.target = underneathElem;
+            $(underneathElem).trigger(e);
+            
+            // reset this object's display property
             if(origDisplayAttribute)
                 $(this)
                     .css('display', origDisplayAttribute);
             else
                 $(this).css('display','');
-
-             // fire the mouse event on the element below
-            e.target = underneathElem;
-            $(underneathElem).trigger(e);
 
             return false;
         }
